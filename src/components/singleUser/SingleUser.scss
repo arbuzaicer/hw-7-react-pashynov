@@ -1,0 +1,26 @@
+.user-single {
+  width: 15%;
+  height: 250px;
+  button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+  }
+  margin: 20px 50px;
+  &__media {
+    width: 120px;
+    height: 120px;
+  }
+  &__content {
+    width: 100%;
+    padding: 10px !important;
+    h2 {
+      font-size: 1.4em;
+    }
+    p {
+      font-size: 0.8em;
+    }
+  }
+}
