@@ -4,3 +4,4 @@ export const CREATE_USER = "CREATE_USER";
 export const GET_TWEETS = "GET_TWEETS";
 export const CREATE_TWEET = "CREATE_TWEET";
 export const UPDATE_THEME_MOD = "UPDATE_THEME_MOD";
+export const IS_ERROR = "IS_ERROR";

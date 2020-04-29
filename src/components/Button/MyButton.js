@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -19,7 +18,6 @@ const MyButton = ({ onSubmit, type }) => {
       color="primary"
       type={type}
       className={classes.button}
-      endIcon={<Icon>send</Icon>}
       onClick={onSubmit}
     >
       Send

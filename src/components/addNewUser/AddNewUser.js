@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CREATE_USER } from '../../store/types';
-import { postUserData } from '../../store/actions/rootActions';
-import { sendingStatusSelector } from '../../store/selectors/rootSelectors';
+import {
+  isErrorAction,
+  postUserData,
+} from '../../store/actions/rootActions';
+import {isERROR, sendingStatusSelector} from '../../store/selectors/rootSelectors';
 
 import AlertStatus from '../AlertStatus';
 import Preloader from '../Preloader/Preloader';
@@ -12,12 +15,12 @@ import MyButton from '../Button';
 import './AddNewUser.scss';
 
 const AddNewUser = () => {
+  const sendingStatus = useSelector(sendingStatusSelector);
   const [name, setName] = useState("");
-  const [isError, setIsError] = useState(false);
+  const isError = useSelector(isERROR);
   const [userName, setUserName] = useState("");
   const [avatar, setAvatar] = useState("");
   const dispatch = useDispatch();
-  const sendingStatus = useSelector(sendingStatusSelector);
 
   const inputChangeHandler = (e, setHook) => {
     setHook(e.target.value);
@@ -25,8 +28,9 @@ const AddNewUser = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (!name || !userName || !avatar) {
-      setIsError(true);
-      setTimeout(() => setIsError(false), 3000);
+      dispatch(isErrorAction());
+      setTimeout(() => dispatch(isErrorAction())
+    , 3000);
       return;
     }
     dispatch(postUserData(name, userName, avatar));

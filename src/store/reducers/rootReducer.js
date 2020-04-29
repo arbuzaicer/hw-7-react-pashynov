@@ -2,7 +2,7 @@ import {
   CREATE_TWEET,
   CREATE_USER,
   GET_TWEETS,
-  GET_USERS,
+  GET_USERS, IS_ERROR,
   UPDATE_MENU_ITEM, UPDATE_THEME_MOD,
 } from '../types';
 
@@ -12,6 +12,7 @@ const initialState = {
   tweets: [],
   sendingStatus: false,
   isSwitchOn: false,
+  isError: false
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -38,6 +39,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         sendingStatus: !state.sendingStatus,
       };
+    }
+    case IS_ERROR: {
+      return {
+        ...state, isError: !state.isError
+      }
     }
     case GET_TWEETS: {
       return {

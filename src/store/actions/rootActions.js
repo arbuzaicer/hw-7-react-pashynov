@@ -1,4 +1,12 @@
-import { CREATE_TWEET, CREATE_USER, GET_TWEETS, GET_USERS, UPDATE_MENU_ITEM, UPDATE_THEME_MOD } from '../types';
+import {
+  CREATE_TWEET,
+  CREATE_USER,
+  GET_TWEETS,
+  GET_USERS,
+  IS_ERROR,
+  UPDATE_MENU_ITEM,
+  UPDATE_THEME_MOD,
+} from '../types';
 import api from '../../api/api';
 
 export const menuNameAction = (data) => {
@@ -24,26 +32,46 @@ export const getUsersDataAction = () => (dispatch) => {
 };
 
 export const postUserData = (name, username, avatar) => (dispatch) => {
-  api.createUser(name, username, avatar).then(() => {
+  api
+    .createUser(name, username, avatar)
+    .then(() => {
+      dispatch({
+        type: CREATE_USER,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(isErrorAction());
+      setTimeout(() => dispatch(isErrorAction()), 2500);
+    });
+};
+
+export const getTweetsAction = () => (dispatch) => {
+  api.getTweets().then((res) => {
     dispatch({
-      type: CREATE_USER,
+      type: GET_TWEETS,
+      payload: res.data.data,
     });
   });
 };
 
-export const getTweetsAction = () => dispatch => {
-  api.getTweets().then(res => {
-    dispatch({
-      type: GET_TWEETS,
-      payload: res.data.data
-    })
-  })
+export const isErrorAction = () => {
+  return {
+    type: IS_ERROR,
+  };
 };
 
 export const postTweetData = (userId, content, image) => (dispatch) => {
-  api.createTweet(userId, content, image).then(()=> {
-    dispatch({
-      type: CREATE_TWEET,
+  api
+    .createTweet(userId, content, image)
+    .then(() => {
+      dispatch({
+        type: CREATE_TWEET,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(isErrorAction());
+      setTimeout(() => dispatch(isErrorAction()), 2500);
     });
-  })
 };

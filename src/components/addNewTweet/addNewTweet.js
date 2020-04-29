@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CREATE_TWEET } from '../../store/types';
 import {
+  isERROR,
   sendingStatusSelector,
   tweetsSelector,
 } from '../../store/selectors/rootSelectors';
 import {
-  getTweetsAction,
+  getTweetsAction, isErrorAction,
   postTweetData,
 } from '../../store/actions/rootActions';
 
@@ -20,7 +21,7 @@ import './addNewTweet.scss';
 
 const AddNewTweet = () => {
   const [user, setUser] = useState("");
-  const [isError, setIsError] = useState(false);
+  const isError = useSelector(isERROR);
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
   const sendingStatus = useSelector(sendingStatusSelector);
@@ -43,8 +44,8 @@ const AddNewTweet = () => {
   const onuSubmitTweetForm = (e) => {
     e.preventDefault();
     if (!user || !content || !image) {
-      setIsError(true);
-      setTimeout(() => setIsError(false), 3000);
+      dispatch(isErrorAction());
+      setTimeout(() => dispatch(isErrorAction()), 3000);
       return;
     }
     dispatch(postTweetData(user, content, image));

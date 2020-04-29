@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getTweetsAction,
-  getUsersDataAction,
 } from '../../store/actions/rootActions';
 import { tweetsSelector } from '../../store/selectors/rootSelectors';
 
@@ -26,9 +25,8 @@ const Tweets = () => {
   });
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getUsersDataAction());
       dispatch(getTweetsAction());
-    }, 5000);
+    }, 3000);
   }, [dispatch]);
   return tweets.length ? <div>{tweetsData}</div> : <Preloader />;
 };

@@ -1,40 +1,33 @@
 import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import {useSelector} from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import {switchSelector} from '../../store/selectors/rootSelectors';
 
-const CssTextField = withStyles({
-  root: {
+const useStyles = makeStyles({
+  textfield: {
     width: 550,
-    "& label.Mui-focused": {
-      color: "#1d3887",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "#1d3887",
-    },
-    "& .MuiOutlinedInput-root": {
-      "&.Mui-focused fieldset": {
-        borderColor: "#1d3887",
-      },
-    },
+    marginBottom: 10,
+    transition: "0.5s",
+    border: props => props.borderColor,
+    "& > label": {
+      transition: "0.5s",
+      color: props => props.textColor,
+    }
   },
-})(TextField);
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-}));
+});
 
 const FromInput = ({ placeholder, onChange, value }) => {
-  const classes = useStyles();
+  const selectMode = useSelector(switchSelector);
+  const themeMode = {
+    borderColor: selectMode ? "1px solid #262626" : "1px solid #ccc",
+    textColor: selectMode ? "#262626" : "#ccc",
+  };
+  const classes = useStyles(themeMode);
 
   return (
-    <CssTextField
-      className={classes.margin}
+    <TextField
+      className={classes.textfield}
       label={placeholder}
       variant="outlined"
       onChange={onChange}
