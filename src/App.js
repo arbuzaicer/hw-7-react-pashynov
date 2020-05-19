@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Route } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
+import { useLocation } from 'react-router-dom'
+
 import { switchSelector } from "./store/selectors/rootSelectors";
+import { menuNameAction } from "./store/actions/rootActions";
 
 import routes from './routes';
 import SwitchThemeSide from './components/SwitchThemeSide/SwitchThemeSide';
@@ -20,7 +23,14 @@ const App = () => {
     );
   });
   const selectMode = useSelector(switchSelector);
-  return (
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(menuNameAction(location.pathname));
+  }, [dispatch, location.pathname]);
+
+    return (
     <div className="App">
       <Navbar />
       <SwitchThemeSide mode={selectMode} />

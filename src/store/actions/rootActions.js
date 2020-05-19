@@ -10,9 +10,20 @@ import {
 import api from '../../api/api';
 
 export const menuNameAction = (data) => {
+  let result = data.slice(1).split("-");
+  if (result.length > 1) {
+    result = result
+      .map((item) => item[0].toUpperCase() + item.slice(1))
+      .join("");
+  }
+  else {
+    result = result.join("");
+    result = !result ? 'Users' : result[0].toUpperCase()+result.slice(1);
+  }
+
   return {
     type: UPDATE_MENU_ITEM,
-    payload: data,
+    payload: result,
   };
 };
 

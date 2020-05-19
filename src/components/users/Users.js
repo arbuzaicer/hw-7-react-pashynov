@@ -14,6 +14,7 @@ const Users = () => {
   const [currentUsersPage, setCurrentUsersPage] = useState(0);
   const usersStore = useSelector(usersSelector);
   const dispatch = useDispatch();
+
   useEffect(() => {
     setTimeout(() => dispatch(getUsersDataAction()), 2000);
   }, [dispatch]);

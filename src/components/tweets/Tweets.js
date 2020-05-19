@@ -11,6 +11,7 @@ import Preloader from '../Preloader/Preloader';
 const Tweets = () => {
   const tweets = useSelector(tweetsSelector);
   const dispatch = useDispatch();
+
   const tweetsData = tweets.map((user) => {
     return (
       <UsersPosts
@@ -23,6 +24,7 @@ const Tweets = () => {
       />
     );
   });
+
   useEffect(() => {
     setTimeout(() => {
       dispatch(getTweetsAction());

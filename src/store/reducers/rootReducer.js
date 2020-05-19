@@ -7,7 +7,7 @@ import {
 } from '../types';
 
 const initialState = {
-  menuItem: "Users",
+  menuItem: "",
   users: [],
   tweets: [],
   sendingStatus: false,
