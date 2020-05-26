@@ -1,4 +1,4 @@
-import * as axios from "axios";
+import * as axios from 'axios';
 
 const BASE_URL = "https://tweets.globalofficiallottery.com";
 
